@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "skuska")
+@Table(name = "Zakaznici")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +18,20 @@ public class ZakaznikEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_zakaznika;
 
-    private String meno;
+    private int tel_cislo;
+
+    private String email;
 
     private String heslo;
+
+    private String ulica;
+
+    private String mesto;
+
+    private int psc;
+
 
 
 }
