@@ -9,20 +9,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name = "Zakaznici")
+@Table(name = "Restauracie")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZakaznikEntity {
+
+
+public class RestauraciaEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_zakaznika;
+    private Long id_restauracie;
+
+    private String nazov;
+
+    private String typ;
 
     private int tel_cislo;
-
-    private String email;
 
     private String heslo;
 
@@ -31,6 +37,7 @@ public class ZakaznikEntity {
     private String mesto;
 
     private int psc;
+
 
 
 
