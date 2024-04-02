@@ -2,12 +2,11 @@ package com.example.MadariZLucenca.controller;
 
 import com.example.MadariZLucenca.persistence.RestauraciaEntity;
 import com.example.MadariZLucenca.persistence.RestauraciaRepository;
+import com.example.MadariZLucenca.service.Restauracia;
+import com.example.MadariZLucenca.service.RestauraciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class RestauraciaController {
 
     @Autowired
-    private RestauraciaRepository zakaznikRepository;
+    private RestauraciaRepository restauraciaRepository;
 
     // vlozenie natvrdo. Bude sluzit na registraciu zakaznika
     @PostMapping("/test/restauracia")                          // treba volat cez postman + openvpn (profil umb). Vysledok sa ulozi do tabulky skuska.
@@ -30,14 +29,15 @@ public class RestauraciaController {
         zakaznik1.setMesto("bardejov");
         zakaznik1.setPsc(4544);
 
-        zakaznikRepository.save(zakaznik1);
+        restauraciaRepository.save(zakaznik1);
 
         return "Hodnoty boli uložené.";
     }
 
+
     @GetMapping("/test/restauracia/{id}")       //treba cez get http://localhost:8080/test/restauracia/1
     public ResponseEntity<RestauraciaEntity> getRestauraciaById(@PathVariable Long id) {
-        Optional<RestauraciaEntity> restauraciaOptional = zakaznikRepository.findById(id);
+        Optional<RestauraciaEntity> restauraciaOptional = restauraciaRepository.findById(id);
         if (restauraciaOptional.isPresent()) {
             RestauraciaEntity restauracia = restauraciaOptional.get();
             return ResponseEntity.ok().body(restauracia);
@@ -46,6 +46,17 @@ public class RestauraciaController {
         }
     }
 
+    @Autowired
+    private RestauraciaService restauraciaService;
+    @PostMapping("/restauracia")
+    public Long vytvorNovuRestauraciu(@RequestBody Restauracia restauracia) {
+        return restauraciaService.vytvorNovuRestauraciu(restauracia);
+    }
+
+    @GetMapping("/restauracia/{restauraciaId}")
+    public Restauracia restauraciaPodlaId(@PathVariable Long restauraciaId) {
+        return restauraciaService.restauraciaPodlaId(restauraciaId);
+    }
 
 
 
