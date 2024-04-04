@@ -2,8 +2,6 @@ package com.example.MadariZLucenca.controller;
 
 import com.example.MadariZLucenca.persistence.ZakaznikEntity;
 import com.example.MadariZLucenca.persistence.ZakaznikRepository;
-import com.example.MadariZLucenca.service.Restauracia;
-import com.example.MadariZLucenca.service.RestauraciaService;
 import com.example.MadariZLucenca.service.Zakaznik;
 import com.example.MadariZLucenca.service.ZakaznikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
 
 @RestController
     public  class ZakaznikController {

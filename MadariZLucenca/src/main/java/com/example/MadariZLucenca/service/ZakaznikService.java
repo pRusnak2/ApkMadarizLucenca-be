@@ -1,7 +1,5 @@
 package com.example.MadariZLucenca.service;
 
-import com.example.MadariZLucenca.persistence.RestauraciaEntity;
-import com.example.MadariZLucenca.persistence.RestauraciaRepository;
 import com.example.MadariZLucenca.persistence.ZakaznikEntity;
 import com.example.MadariZLucenca.persistence.ZakaznikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
