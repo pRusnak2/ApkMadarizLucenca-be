@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Zakaznik {
 
     private Long id_zakaznika;
+    private String meno;
     private int tel_cislo;
     private String email;
     private String heslo;

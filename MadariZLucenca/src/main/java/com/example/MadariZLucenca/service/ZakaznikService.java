@@ -14,6 +14,7 @@ public class ZakaznikService {
     private ZakaznikRepository zakaznikRepository;
     public Long vytvorNovehoZakaznika(Zakaznik zakaznik) {
         ZakaznikEntity entity = new ZakaznikEntity();
+        entity.setMeno(zakaznik.getMeno());
         entity.setTel_cislo(zakaznik.getTel_cislo());
         entity.setEmail(zakaznik.getEmail());
         entity.setHeslo(zakaznik.getHeslo());
@@ -33,6 +34,7 @@ public class ZakaznikService {
         ZakaznikEntity entity = opt.get();
         Zakaznik zakaznik = new Zakaznik();
         zakaznik.setId_zakaznika(entity.getId_zakaznika());
+        zakaznik.setMeno(entity.getMeno());
         zakaznik.setTel_cislo(entity.getTel_cislo());
         zakaznik.setEmail(entity.getEmail());
         zakaznik.setHeslo(entity.getHeslo());

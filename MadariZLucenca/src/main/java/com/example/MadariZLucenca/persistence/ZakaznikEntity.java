@@ -20,6 +20,8 @@ public class ZakaznikEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_zakaznika;
 
+    private String meno;
+
     private int tel_cislo;
 
     private String email;
