@@ -11,34 +11,29 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "Restauracie")
+@Table(name = "Zakaznici")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-
-public class RestauraciaEntity {
-
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_restauracie;
+    private Long customerId;
 
-    private String nazov;
+    private int telNumber;
 
-    private String typ;
+    private String email;
 
-    private int tel_cislo;
+    private String username;
 
-    private String heslo;
+    private String password;
 
-    private String ulica;
+    private String streetName;
 
-    private String mesto;
+    private String cityName;
 
-    private int psc;
-
-
-
-
+    private int postCode;
 }
+

@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Zakaznik {
+public class Customer {
 
-    private Long id_zakaznika;
-    private int tel_cislo;
+    private Long userId;
+    private int telNumber;
     private String email;
-    private String heslo;
-    private String ulica;
-    private String mesto;
-    private int psc;
+    private String password;
+    private String streetName;
+    private String cityName;
+    private int postCode;
 }
