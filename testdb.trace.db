@@ -1,0 +1,15 @@
+2024-04-08 09:29:57.518200+02:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM JEDLA JEDLA [*]OBJEDNAVKY"; SQL statement:
+SELECT * FROM JEDLA JEDLA OBJEDNAVKY [42000-224]
+2024-04-08 10:58:55.600581+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FROM"; expected "identifier"; SQL statement:
+DELETE * FROM [42001-224]
+2024-04-08 10:59:09.454547+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FROM OBJEDNAVKY"; expected "identifier"; SQL statement:
+DELETE * FROM OBJEDNAVKY [42001-224]
+2024-04-08 10:59:19.304173+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CULUMN" not found; SQL statement:
+DELETE CULUMN FROM OBJEDNAVKY [42102-224]
+2024-04-08 11:00:30.967559+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESTAURACIE" not found; SQL statement:
+DROP TABLE RESTAURACIE [42102-224]
