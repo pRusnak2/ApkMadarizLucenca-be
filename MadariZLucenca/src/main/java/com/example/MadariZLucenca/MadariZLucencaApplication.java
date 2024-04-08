@@ -9,5 +9,4 @@ public class MadariZLucencaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MadariZLucencaApplication.class, args);
 	}
-
 }
