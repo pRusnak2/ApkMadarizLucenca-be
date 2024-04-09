@@ -5,6 +5,7 @@ import com.example.MadariZLucenca.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -21,4 +22,13 @@ public class RestaurantController {
     public Restaurant restaurantById(@PathVariable Long restauraciaId) {
         return restaurantService.restaurantById(restauraciaId);
     }
+
+    @GetMapping("/restauracia/vsetky")
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantService.getAllRestaurants();
+    }
+
+
+
+
 }

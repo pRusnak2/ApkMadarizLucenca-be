@@ -5,7 +5,9 @@ import com.example.MadariZLucenca.persistence.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService {
@@ -44,4 +46,24 @@ public class RestaurantService {
         restaurant.setCityName(entity.getCityName());
         return restaurant;
     }
+
+    public List<Restaurant> getAllRestaurants() {
+        List<RestaurantEntity> entities = restaurantRepository.findAll();
+        return entities.stream()
+                .map(entity -> {
+                    Restaurant restaurant = new Restaurant();
+                    restaurant.setRestaurantId(entity.getRestaurantId());
+                    restaurant.setName(entity.getName());
+                    restaurant.setType(entity.getType());
+                    restaurant.setTelNumber(entity.getTelNumber());
+                    restaurant.setUsername(entity.getUsername());
+                    restaurant.setPassword(entity.getPassword());
+                    restaurant.setStreetName(entity.getStreetName());
+                    restaurant.setCityName(entity.getCityName());
+                    return restaurant;
+                })
+                .collect(Collectors.toList());
+    }
+
+
 }
