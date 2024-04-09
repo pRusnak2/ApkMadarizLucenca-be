@@ -35,4 +35,8 @@ public class CustomerEntity {
     private String cityName;
 
     private int postCode;
+
+    private String firstName;
+
+    private String lastName;
 }

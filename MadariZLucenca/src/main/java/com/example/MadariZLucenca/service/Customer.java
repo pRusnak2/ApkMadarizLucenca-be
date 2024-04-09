@@ -17,4 +17,6 @@ public class Customer {
     private String streetName;
     private String cityName;
     private int postCode;
+    private String firstName;
+    private String lastName;
 }

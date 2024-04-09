@@ -21,6 +21,8 @@ public class CustomerService {
         entity.setStreetName(customer.getStreetName());
         entity.setCityName(customer.getCityName());
         entity.setPostCode(customer.getPostCode());
+        entity.setFirstName(customer.getFirstName());
+        entity.setLastName(customer.getLastName());
         customerRepository.save(entity);
         return entity.getCustomerId();
     }
