@@ -14,6 +14,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
     public Long createNewCustomer(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
+        entity.setUsername(customer.getUsername());
         entity.setTelNumber(customer.getTelNumber());
         entity.setEmail(customer.getEmail());
         entity.setPassword(customer.getPassword());
@@ -33,6 +34,7 @@ public class CustomerService {
         CustomerEntity entity = opt.get();
         Customer customer = new Customer();
         customer.setUserId(entity.getCustomerId());
+        customer.setUsername(entity.getUsername());
         customer.setTelNumber(entity.getTelNumber());
         customer.setEmail(entity.getEmail());
         customer.setPassword(entity.getPassword());

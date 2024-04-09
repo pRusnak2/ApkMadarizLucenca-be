@@ -36,4 +36,3 @@ public class CustomerEntity {
 
     private int postCode;
 }
-
