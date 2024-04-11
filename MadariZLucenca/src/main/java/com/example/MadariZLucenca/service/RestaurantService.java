@@ -65,5 +65,10 @@ public class RestaurantService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteRestaurant(Long id) {
+        restaurantRepository.deleteById(id);
+    }
+
+
 
 }
