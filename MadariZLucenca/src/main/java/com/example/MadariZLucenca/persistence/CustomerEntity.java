@@ -1,13 +1,12 @@
 package com.example.MadariZLucenca.persistence;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -39,4 +38,9 @@ public class CustomerEntity {
     private String firstName;
 
     private String lastName;
+
+    private String passwordHash;
+
+    @ManyToMany
+    private Set<RoleEntity> roles = new HashSet<>();
 }
