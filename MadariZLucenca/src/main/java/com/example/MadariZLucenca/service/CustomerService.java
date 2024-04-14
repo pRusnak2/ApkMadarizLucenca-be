@@ -44,4 +44,9 @@ public class CustomerService {
         customer.setCityName(entity.getCityName());
         return customer;
     }
+
+
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
+    }
 }

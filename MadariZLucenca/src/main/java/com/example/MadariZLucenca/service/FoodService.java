@@ -37,4 +37,23 @@ public class FoodService {
 
         return food;
     }
+
+    public Food deleteFoodById(Long id) {
+        Optional<FoodEntity> opt = jedloRepository.findById(id);
+        if (opt.isEmpty()) {
+            return null;
+        }
+
+        FoodEntity entity = opt.get();
+        Food deletedFood = new Food();
+
+        deletedFood.setFoodId(entity.getFoodId());
+        deletedFood.setName(entity.getName());
+        deletedFood.setPrice(entity.getPrice());
+
+        jedloRepository.deleteById(id);
+
+        return deletedFood;
+    }
+
 }

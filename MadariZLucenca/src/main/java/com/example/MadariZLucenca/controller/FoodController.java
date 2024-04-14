@@ -20,4 +20,9 @@ public class FoodController {
     public Food foodById(@PathVariable Long foodId) {
         return foodService.FoodById(foodId);
     }
+
+    @DeleteMapping("/food/vymazanie/{foodId}")
+    public Food deleteFoodById(@PathVariable Long foodId) {
+        return foodService.deleteFoodById(foodId);
+    }
 }
