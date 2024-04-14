@@ -41,6 +41,6 @@ public class CustomerEntity {
 
     private String passwordHash;
 
-    @ManyToMany
-    private Set<RoleEntity> roles = new HashSet<>();
+    //@ManyToMany
+    //private Set<RoleEntity> roles = new HashSet<>();
 }
