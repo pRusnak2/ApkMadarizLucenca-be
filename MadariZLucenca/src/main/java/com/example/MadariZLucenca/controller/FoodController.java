@@ -5,7 +5,9 @@ import com.example.MadariZLucenca.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
+@CrossOrigin
 @RestController
 public class FoodController {
     @Autowired
@@ -21,6 +23,10 @@ public class FoodController {
         return foodService.FoodById(foodId);
     }
 
+    @GetMapping("/food/restaurant/{restaurantId}")
+    public List<Food> foodByRestaurantId(@PathVariable Long restaurantId) {
+        return foodService.FoodByRestaurantId(restaurantId);
+    }
     @DeleteMapping("/food/vymazanie/{foodId}")
     public Food deleteFoodById(@PathVariable Long foodId) {
         return foodService.deleteFoodById(foodId);

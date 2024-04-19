@@ -20,4 +20,6 @@ public class FoodEntity {
     private String name;
 
     private float price;
+
+    private Long restaurantId;
 }

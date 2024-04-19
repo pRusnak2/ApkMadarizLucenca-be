@@ -12,4 +12,5 @@ public class Food {
     private Long foodId;
     private String name;
     private float price;
+    private Long restaurantId;
 }

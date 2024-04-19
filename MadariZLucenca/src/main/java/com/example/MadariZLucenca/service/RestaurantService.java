@@ -44,6 +44,7 @@ public class RestaurantService {
         restaurant.setPassword(entity.getPassword());
         restaurant.setStreetName(entity.getStreetName());
         restaurant.setCityName(entity.getCityName());
+        restaurant.setPostCode(entity.getPostCode());
         return restaurant;
     }
 

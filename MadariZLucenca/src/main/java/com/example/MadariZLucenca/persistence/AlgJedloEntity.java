@@ -17,8 +17,10 @@ import java.util.Set;
 public class AlgJedloEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long allergenId;
+    private Long id;
     private Long foodId;
+    private Long allergenId;
+
 
     @ManyToMany
     @JoinTable(name = "AlgJedlo_Alergeny",
