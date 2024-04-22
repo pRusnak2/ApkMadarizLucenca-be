@@ -29,12 +29,13 @@ public class RestaurantController {
         return restaurantService.getAllRestaurants();
     }
 
-    @DeleteMapping("/restauracia/vymazanie/{restauraciaId}")
-    public ResponseEntity<String> deleteRestaurant(@PathVariable Long restauraciaId) {
-        restaurantService.deleteRestaurant(restauraciaId);
-        return ResponseEntity.ok("restauracia uspesne vymazana");
-    }
 
+
+    @DeleteMapping("/restauracia/vymazanie/{restauraciaId}")
+    public ResponseEntity<Void> deleteRestaurant(@PathVariable Long restauraciaId) {
+        restaurantService.deleteRestaurant(restauraciaId);
+        return ResponseEntity.ok().build();
+    }
 
 
 }

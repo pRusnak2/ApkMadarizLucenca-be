@@ -1,7 +1,9 @@
 package com.example.MadariZLucenca.service;
 
+import com.example.MadariZLucenca.persistence.FoodEntity;
 import com.example.MadariZLucenca.persistence.RestaurantEntity;
 import com.example.MadariZLucenca.persistence.RestaurantRepository;
+import com.example.MadariZLucenca.persistence.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private FoodRepository foodRepository;
+
+
     public Long createNewRestaurant(Restaurant restaurant) {
         RestaurantEntity entity = new RestaurantEntity();
         entity.setName(restaurant.getName());
@@ -29,7 +35,7 @@ public class RestaurantService {
     }
 
 
-    public Restaurant restaurantById(Long id){
+    public Restaurant restaurantById(Long id) {
         Optional<RestaurantEntity> opt = restaurantRepository.findById(id);
         if (opt.isEmpty()) {
             return null;
@@ -68,9 +74,19 @@ public class RestaurantService {
     }
 
     public void deleteRestaurant(Long id) {
+
+        Optional<RestaurantEntity> opt = restaurantRepository.findById(id);
+        if (opt.isEmpty()) {
+            return;
+        }
+
+        List<FoodEntity> foods = foodRepository.findByRestaurantId(id);
+
+        for (FoodEntity food : foods) {
+            foodRepository.delete(food);
+        }
+
         restaurantRepository.deleteById(id);
     }
-
-
 
 }
