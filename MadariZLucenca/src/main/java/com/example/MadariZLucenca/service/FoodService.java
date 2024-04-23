@@ -17,7 +17,9 @@ public class FoodService {
         FoodEntity entity = new FoodEntity();
 
         entity.setName(food.getName());
+        entity.setDescription(food.getDescription());
         entity.setFoodId(food.getFoodId());
+        entity.setRestaurantId(food.getRestaurantId());
         entity.setPrice(food.getPrice());
 
         jedloRepository.save(entity);
@@ -46,6 +48,7 @@ public class FoodService {
             Food food = new Food();
             food.setFoodId(entity.getFoodId());
             food.setName(entity.getName());
+            food.setDescription(entity.getDescription());
             food.setPrice(entity.getPrice());
             return food;
         }).collect(Collectors.toList());
@@ -64,6 +67,7 @@ public class FoodService {
 
         deletedFood.setFoodId(entity.getFoodId());
         deletedFood.setName(entity.getName());
+        deletedFood.setDescription(entity.getDescription());
         deletedFood.setPrice(entity.getPrice());
 
         jedloRepository.deleteById(id);

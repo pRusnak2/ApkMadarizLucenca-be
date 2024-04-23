@@ -19,6 +19,8 @@ public class FoodEntity {
 
     private String name;
 
+    private String description;
+
     private float price;
 
     private Long restaurantId;

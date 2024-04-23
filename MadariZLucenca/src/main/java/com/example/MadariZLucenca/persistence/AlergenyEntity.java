@@ -19,7 +19,7 @@ public class AlergenyEntity {
     private Long allergenId;
 
     private String name;
-    
+
     @ManyToMany(mappedBy = "alergenyEntities")
     private Set<AlgJedloEntity> algJedloEntities = new HashSet<>();
 }
