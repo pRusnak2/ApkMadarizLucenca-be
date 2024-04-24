@@ -17,9 +17,8 @@ public class AlergenyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long allergenId;
-
     private String name;
 
-    @ManyToMany(mappedBy = "alergenyEntities")
-    private Set<AlgJedloEntity> algJedloEntities = new HashSet<>();
+    @ManyToMany
+    private Set<FoodEntity> foods ;
 }

@@ -4,8 +4,10 @@ import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +52,14 @@ public class FoodService {
             food.setName(entity.getName());
             food.setDescription(entity.getDescription());
             food.setPrice(entity.getPrice());
+            food.setRestaurantId(entity.getRestaurantId());
+
+            Set<AlergenyEntity> allergens = entity.getAllergens();
+            List<String> allergenNamesWithId = allergens.stream()
+                    .map(allergen -> " " + allergen.getAllergenId() + " - " + allergen.getName())
+                    .collect(Collectors.toList());
+
+            food.setAllergens(allergenNamesWithId);
             return food;
         }).collect(Collectors.toList());
 
@@ -74,5 +84,6 @@ public class FoodService {
 
         return deletedFood;
     }
+
 
 }
