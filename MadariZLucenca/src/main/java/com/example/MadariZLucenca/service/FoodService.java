@@ -4,10 +4,7 @@ import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,6 +12,9 @@ public class FoodService {
 
     @Autowired
     FoodRepository jedloRepository;
+
+    @Autowired
+    AlergenyRepository alergenyRepository;
     public Long createNewFood(Food food) {
         FoodEntity entity = new FoodEntity();
 
@@ -24,7 +24,20 @@ public class FoodService {
         entity.setRestaurantId(food.getRestaurantId());
         entity.setPrice(food.getPrice());
 
+        List<String> allergenIds = food.getAllergens();
+        Set<AlergenyEntity> allergens = new HashSet<>();
+
+        for (String allergenId : allergenIds) {
+            Optional<AlergenyEntity> allergenOpt = alergenyRepository.findById(Long.valueOf(allergenId));
+            if (allergenOpt.isPresent()) {
+                allergens.add(allergenOpt.get());
+            }
+        }
+
+        entity.setAllergens(allergens);
+
         jedloRepository.save(entity);
+
         return entity.getFoodId();
     }
 
