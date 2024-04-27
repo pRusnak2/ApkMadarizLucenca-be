@@ -3,12 +3,16 @@ package com.example.MadariZLucenca.service;
 import com.example.MadariZLucenca.persistence.CustomerEntity;
 import com.example.MadariZLucenca.persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class CustomerService {
+
+    private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -18,6 +22,7 @@ public class CustomerService {
         entity.setTelNumber(customer.getTelNumber());
         entity.setEmail(customer.getEmail());
         entity.setPassword(customer.getPassword());
+        entity.setPasswordHash(passwordEncoder.encode(customer.getPassword()));
         entity.setStreetName(customer.getStreetName());
         entity.setCityName(customer.getCityName());
         entity.setPostCode(customer.getPostCode());
