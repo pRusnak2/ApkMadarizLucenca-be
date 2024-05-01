@@ -23,4 +23,8 @@ public class OrderEntity {
     private Timestamp orderTime;
 
     private Timestamp deliveryTime;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
 }

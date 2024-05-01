@@ -41,8 +41,9 @@ public class CustomerEntity {
 
     private String passwordHash;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<ObjZakEntity> objZak = new HashSet<>();
+
+    @OneToMany
+    private Set<OrderEntity> orders;
 
     @ManyToMany
     private Set<RoleEntity> roles = new HashSet<>();
