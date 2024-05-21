@@ -24,6 +24,8 @@ public class LoginService {
         entity.setUsername(login.getUsername());
         entity.setPasswordHash(passwordEncoder.encode(login.getPassword()));
         entity.setRole(login.getRole());
+        entity.setCustomer(login.getCustomer());
+        entity.setRestaurant(login.getRestaurant());
         loginRepository.save(entity);
         return entity.getId();
     }
@@ -39,6 +41,9 @@ public class LoginService {
         login.setId(entity.getId());
         login.setUsername(entity.getUsername());
         login.setPassword(entity.getPasswordHash());
+        login.setRole(entity.getRole());
+        login.setCustomer(entity.getCustomer());
+        login.setRestaurant(entity.getRestaurant());
         return login;
     }
 

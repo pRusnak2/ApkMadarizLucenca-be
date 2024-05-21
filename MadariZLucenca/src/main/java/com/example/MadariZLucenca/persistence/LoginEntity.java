@@ -19,5 +19,15 @@ public class LoginEntity {
 
     private String passwordHash;
 
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private RoleEntity role;
+
+    @OneToOne
+    @JoinColumn(name = "customerId")
+    private CustomerEntity customer;
+
+    @OneToOne
+    @JoinColumn(name = "restaurantId")
+    private RestaurantEntity restaurant;
 }
