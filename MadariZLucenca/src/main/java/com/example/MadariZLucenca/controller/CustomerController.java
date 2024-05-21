@@ -2,6 +2,7 @@ package com.example.MadariZLucenca.controller;
 
 import com.example.MadariZLucenca.service.Customer;
 import com.example.MadariZLucenca.service.CustomerService;
+import com.example.MadariZLucenca.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
