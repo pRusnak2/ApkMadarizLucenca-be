@@ -5,6 +5,7 @@ import com.example.MadariZLucenca.persistence.RestaurantEntity;
 import com.example.MadariZLucenca.persistence.RestaurantRepository;
 import com.example.MadariZLucenca.persistence.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,6 +74,7 @@ public class RestaurantService {
                 .collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasRole('ROLE_RESTAURANT')")
     public void deleteRestaurant(Long id) {
 
         Optional<RestaurantEntity> opt = restaurantRepository.findById(id);

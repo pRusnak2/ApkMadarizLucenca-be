@@ -2,6 +2,7 @@ package com.example.MadariZLucenca.service;
 
 import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,6 +16,8 @@ public class FoodService {
 
     @Autowired
     AlergenyRepository alergenyRepository;
+
+    //@PreAuthorize("hasRole('ROLE_RESTAURANT')")
     public Long createNewFood(Food food) {
         FoodEntity entity = new FoodEntity();
 
@@ -79,6 +82,7 @@ public class FoodService {
         return foodList;
     }
 
+    @PreAuthorize("hasRole('ROLE_RESTAURANT')")
     public Food deleteFoodById(Long id) {
         Optional<FoodEntity> opt = jedloRepository.findById(id);
         if (opt.isEmpty()) {

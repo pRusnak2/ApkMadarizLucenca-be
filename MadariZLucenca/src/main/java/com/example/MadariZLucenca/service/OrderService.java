@@ -2,6 +2,7 @@ package com.example.MadariZLucenca.service;
 
 import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class OrderService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    //@PreAuthorize("hasRole('ROLE_USER')")
     public Order createOrder(Long customerId, Order order) {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(customerId);
         if (optionalCustomer.isEmpty()) {
@@ -35,6 +37,7 @@ public class OrderService {
         order.setOrderId(orderEntity.getOrderId());
         return order;
     }
+
 
     public Order orderById(Long id){
         Optional<OrderEntity> opt = orderRepository.findById(id);
