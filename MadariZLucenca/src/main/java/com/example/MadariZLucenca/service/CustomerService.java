@@ -17,8 +17,6 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private LoginRepository loginRepository;
 
     public Long createNewCustomer(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
@@ -34,13 +32,8 @@ public class CustomerService {
         entity.setLastName(customer.getLastName());
         customerRepository.save(entity);
 
-        LoginEntity repositoryEntity = new LoginEntity();
-        repositoryEntity.setUsername(customer.getUsername());
-        repositoryEntity.setPasswordHash(passwordEncoder.encode(customer.getPassword()));
-        repositoryEntity.setRole(3);
-        repositoryEntity.setCustomer(entity);
-        repositoryEntity.setRestaurant(null);
-        loginRepository.save(repositoryEntity);
+        LoginService loginService = new LoginService();
+        loginService.createNewLogin(customer, entity);
 
         return entity.getCustomerId();
     }

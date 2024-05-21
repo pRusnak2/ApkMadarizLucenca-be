@@ -44,4 +44,8 @@ public class CustomerEntity {
 
     @OneToMany
     private Set<OrderEntity> orders;
+
+    public Set<RoleEntity> getRoles() {
+        return null;
+    }
 }

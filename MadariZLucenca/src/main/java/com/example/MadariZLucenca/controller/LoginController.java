@@ -12,11 +12,6 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @PostMapping("/login")
-    public Long createNewLogin(@RequestBody Login login) {
-        return loginService.createNewLogin(login);
-    }
-
     @GetMapping("/login/{zakaznikId}")
     public Login loginById(@PathVariable Long Id) {
         return loginService.loginById(Id);

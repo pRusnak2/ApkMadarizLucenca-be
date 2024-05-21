@@ -20,8 +20,6 @@ public class RestaurantService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private FoodRepository foodRepository;
-    @Autowired
-    private LoginRepository loginRepository;
 
 
     public Long createNewRestaurant(Restaurant restaurant) {
@@ -37,13 +35,8 @@ public class RestaurantService {
         entity.setPostCode(restaurant.getPostCode());
         restaurantRepository.save(entity);
 
-        LoginEntity repositoryEntity = new LoginEntity();
-        repositoryEntity.setUsername(restaurant.getUsername());
-        repositoryEntity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
-        repositoryEntity.setRole(3);
-        repositoryEntity.setRestaurant(entity);
-        repositoryEntity.setRestaurant(null);
-        loginRepository.save(repositoryEntity);
+        LoginService loginService = new LoginService();
+        loginService.createNewLogin(restaurant, entity);
 
         return entity.getRestaurantId();
     }
