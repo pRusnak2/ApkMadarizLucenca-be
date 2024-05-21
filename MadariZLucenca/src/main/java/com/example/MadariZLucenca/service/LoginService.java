@@ -12,18 +12,19 @@ import java.util.Optional;
 @Service
 public class LoginService {
 
-    private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
+    private final LoginRepository loginRepository;
 
     @Autowired
-    private LoginRepository loginRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
+    public LoginService(LoginRepository loginRepository) {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.loginRepository = loginRepository;
+    }
 
     public Long createNewLogin(Customer customer, CustomerEntity customerEntity) {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRoleName("customer");
-        roleRepository.save(roleEntity);
+        roleEntity.setId(3L);
+        roleEntity.setRoleName("ROLE_CUSTOMER");
 
         LoginEntity entity = new LoginEntity();
         entity.setUsername(customer.getUsername());
@@ -39,7 +40,8 @@ public class LoginService {
 
     public Long createNewLogin(Restaurant restaurant, RestaurantEntity restaurantEntity) {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRoleName("customer");
+        roleEntity.setId(2L);
+        roleEntity.setRoleName("ROLE_RESTAURANT");
 
 
         LoginEntity entity = new LoginEntity();

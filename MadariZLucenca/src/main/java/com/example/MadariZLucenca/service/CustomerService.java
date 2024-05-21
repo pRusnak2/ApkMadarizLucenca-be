@@ -17,6 +17,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private LoginRepository loginRepository;
+
 
     public Long createNewCustomer(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
@@ -32,7 +35,7 @@ public class CustomerService {
         entity.setLastName(customer.getLastName());
         customerRepository.save(entity);
 
-        LoginService loginService = new LoginService();
+        LoginService loginService = new LoginService(loginRepository);
         loginService.createNewLogin(customer, entity);
 
         return entity.getCustomerId();
