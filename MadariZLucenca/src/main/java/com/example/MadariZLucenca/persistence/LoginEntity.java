@@ -26,7 +26,7 @@ public class LoginEntity {
     @OneToOne
     @JoinColumn(name = "customerId")
     private CustomerEntity customer;
-
+//test
     @OneToOne
     @JoinColumn(name = "restaurantId")
     private RestaurantEntity restaurant;
