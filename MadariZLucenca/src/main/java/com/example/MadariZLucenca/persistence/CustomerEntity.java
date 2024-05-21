@@ -44,7 +44,4 @@ public class CustomerEntity {
 
     @OneToMany
     private Set<OrderEntity> orders;
-
-    @ManyToMany
-    private Set<RoleEntity> roles = new HashSet<>();
 }

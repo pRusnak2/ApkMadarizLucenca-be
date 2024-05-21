@@ -6,6 +6,8 @@ import com.example.MadariZLucenca.persistence.RestaurantRepository;
 import com.example.MadariZLucenca.persistence.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService {
+
+    private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
     @Autowired
     private RestaurantRepository restaurantRepository;
@@ -28,6 +32,7 @@ public class RestaurantService {
         entity.setTelNumber(restaurant.getTelNumber());
         entity.setUsername(restaurant.getUsername());
         entity.setPassword(restaurant.getPassword());
+        entity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
         entity.setStreetName(restaurant.getStreetName());
         entity.setCityName(restaurant.getCityName());
         entity.setPostCode(restaurant.getPostCode());
@@ -49,6 +54,7 @@ public class RestaurantService {
         restaurant.setTelNumber(entity.getTelNumber());
         restaurant.setUsername(entity.getUsername());
         restaurant.setPassword(entity.getPassword());
+        restaurant.setPasswordHash(entity.getPasswordHash());
         restaurant.setStreetName(entity.getStreetName());
         restaurant.setCityName(entity.getCityName());
         restaurant.setPostCode(entity.getPostCode());
@@ -66,6 +72,7 @@ public class RestaurantService {
                     restaurant.setTelNumber(entity.getTelNumber());
                     restaurant.setUsername(entity.getUsername());
                     restaurant.setPassword(entity.getPassword());
+                    restaurant.setPasswordHash(entity.getPasswordHash());
                     restaurant.setStreetName(entity.getStreetName());
                     restaurant.setCityName(entity.getCityName());
                     restaurant.setPostCode(entity.getPostCode());

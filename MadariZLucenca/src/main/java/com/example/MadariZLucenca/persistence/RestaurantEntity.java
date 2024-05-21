@@ -33,6 +33,8 @@ public class RestaurantEntity {
 
     private String password;
 
+    private String passwordHash;
+
     private String streetName;
 
     private String cityName;

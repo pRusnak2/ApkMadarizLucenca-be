@@ -15,6 +15,7 @@ public class Restaurant {
     private int telNumber;
     private String username;
     private String password;
+    private String passwordHash;
     private String streetName;
     private String cityName;
     private int postCode;
