@@ -1,9 +1,6 @@
 package com.example.MadariZLucenca.service;
 
-import com.example.MadariZLucenca.persistence.FoodEntity;
-import com.example.MadariZLucenca.persistence.RestaurantEntity;
-import com.example.MadariZLucenca.persistence.RestaurantRepository;
-import com.example.MadariZLucenca.persistence.FoodRepository;
+import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +20,8 @@ public class RestaurantService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private FoodRepository foodRepository;
+    @Autowired
+    private LoginRepository loginRepository;
 
 
     public Long createNewRestaurant(Restaurant restaurant) {
@@ -37,6 +36,15 @@ public class RestaurantService {
         entity.setCityName(restaurant.getCityName());
         entity.setPostCode(restaurant.getPostCode());
         restaurantRepository.save(entity);
+
+        LoginEntity repositoryEntity = new LoginEntity();
+        repositoryEntity.setUsername(restaurant.getUsername());
+        repositoryEntity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
+        repositoryEntity.setRole(3);
+        repositoryEntity.setRestaurant(entity);
+        repositoryEntity.setRestaurant(null);
+        loginRepository.save(repositoryEntity);
+
         return entity.getRestaurantId();
     }
 
