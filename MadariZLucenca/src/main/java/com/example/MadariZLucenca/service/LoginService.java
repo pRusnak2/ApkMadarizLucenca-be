@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LoginService {
     private final PasswordEncoder passwordEncoder;
@@ -40,4 +42,23 @@ public class LoginService {
         return loginEntity.getId();
     }
 
+    public Login loginById(Long id){
+        Optional<LoginEntity> opt = loginRepository.findById(id);
+        if (opt.isEmpty()) {
+            return null;
+        }
+        LoginEntity entity = opt.get();
+        Login login = new Login();
+        login.setId(entity.getId());
+        login.setUsername(entity.getUsername());
+        login.setPasswordHash(entity.getPasswordHash());
+        login.setCustomer(entity.getCustomer());
+        login.setRestaurant(entity.getRestaurant());
+        return login;
+    }
+
+
+    public void deleteLoginById(Long id) {
+        loginRepository.deleteById(id);
+    }
 }
