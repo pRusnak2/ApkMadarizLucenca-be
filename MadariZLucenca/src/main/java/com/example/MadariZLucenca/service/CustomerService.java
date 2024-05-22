@@ -1,9 +1,6 @@
 package com.example.MadariZLucenca.service;
 
-import com.example.MadariZLucenca.persistence.CustomerEntity;
-import com.example.MadariZLucenca.persistence.CustomerRepository;
-import com.example.MadariZLucenca.persistence.RoleEntity;
-import com.example.MadariZLucenca.persistence.RoleRepository;
+import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +19,9 @@ public class CustomerService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private LoginRepository loginRepository;
 
     public Long createNewCustomer(Customer customer, String roleName) {
         CustomerEntity entity = new CustomerEntity();
@@ -45,6 +45,10 @@ public class CustomerService {
         }
 
         customerRepository.save(entity);
+
+        LoginService test = new LoginService();
+        test.createNewLogin(customer, entity);
+
         return entity.getCustomerId();
     }
 

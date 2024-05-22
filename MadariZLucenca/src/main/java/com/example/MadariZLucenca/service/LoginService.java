@@ -1,11 +1,12 @@
 package com.example.MadariZLucenca.service;
 
+import com.example.MadariZLucenca.security.core.SecurityConfig;
 import com.example.MadariZLucenca.persistence.CustomerEntity;
 import com.example.MadariZLucenca.persistence.LoginEntity;
 import com.example.MadariZLucenca.persistence.LoginRepository;
+import com.example.MadariZLucenca.persistence.RestaurantEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,13 +17,24 @@ public class LoginService {
     @Autowired
     LoginRepository loginRepository;
 
-    public Long createNewLogin(Customer customer) {
+    public Long createNewLogin(Customer customer, CustomerEntity customerEntity) {
         LoginEntity loginEntity = new LoginEntity();
         loginEntity.setUsername(customer.getUsername());
-        loginEntity.setPasswordHash(customer.getPasswordHash());
-        loginEntity.setCustomer();
+        loginEntity.setPasswordHash(passwordEncoder.encode(customer.getPassword()));
+        loginEntity.setCustomer(customerEntity);
 
-        return null;
+        loginRepository.save(loginEntity);
+        return loginEntity.getId();
+    }
+
+    public Long createNewLogin(Restaurant restaurant, RestaurantEntity restaurantEntity){
+        LoginEntity loginEntity = new LoginEntity();
+        loginEntity.setUsername(restaurant.getUsername());
+        loginEntity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
+        loginEntity.setRestaurant(restaurantEntity);
+
+        loginRepository.save(loginEntity);
+        return loginEntity.getId();
     }
 
 }

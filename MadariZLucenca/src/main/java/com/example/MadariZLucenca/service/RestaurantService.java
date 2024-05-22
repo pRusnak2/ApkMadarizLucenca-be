@@ -38,6 +38,9 @@ public class RestaurantService {
             System.out.println("chyba s rolami pri restaurant :/");
         }
 
+        LoginService test = new LoginService();
+        test.createNewLogin(restaurant, entity);
+
         restaurantRepository.save(entity);
         return entity.getRestaurantId();
     }

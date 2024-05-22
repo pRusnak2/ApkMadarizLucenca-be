@@ -15,7 +15,6 @@ public class Customer {
     private int telNumber;
     private String email;
     private String password;
-    private String passwordHash;
     private String streetName;
     private String cityName;
     private int postCode;

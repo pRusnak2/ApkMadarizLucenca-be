@@ -1,5 +1,7 @@
 package com.example.MadariZLucenca.persistence;
 
+import com.example.MadariZLucenca.service.Customer;
+import com.example.MadariZLucenca.service.Restaurant;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
