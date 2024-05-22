@@ -46,7 +46,7 @@ public class CustomerService {
 
         customerRepository.save(entity);
 
-        LoginService test = new LoginService();
+        LoginService test = new LoginService(loginRepository);
         test.createNewLogin(customer, entity);
 
         return entity.getCustomerId();

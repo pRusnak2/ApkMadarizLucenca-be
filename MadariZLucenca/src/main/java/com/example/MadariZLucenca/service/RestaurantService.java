@@ -15,9 +15,10 @@ public class RestaurantService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private FoodRepository foodRepository;
-
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private LoginRepository loginRepository;
 
 
     public Long createNewRestaurant(Restaurant restaurant, String roleName) {
@@ -38,10 +39,11 @@ public class RestaurantService {
             System.out.println("chyba s rolami pri restaurant :/");
         }
 
-        LoginService test = new LoginService();
+        restaurantRepository.save(entity);
+
+        LoginService test = new LoginService(loginRepository);
         test.createNewLogin(restaurant, entity);
 
-        restaurantRepository.save(entity);
         return entity.getRestaurantId();
     }
 
