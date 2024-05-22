@@ -16,7 +16,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class RoleEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
