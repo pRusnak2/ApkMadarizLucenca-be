@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class TokenEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
