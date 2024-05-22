@@ -17,4 +17,6 @@ public class Food {
     private float price;
     private Long restaurantId;
     private List<String> allergens;
+
+
 }
