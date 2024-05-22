@@ -1,9 +1,6 @@
 package com.example.MadariZLucenca.service;
 
-import com.example.MadariZLucenca.persistence.FoodEntity;
-import com.example.MadariZLucenca.persistence.RestaurantEntity;
-import com.example.MadariZLucenca.persistence.RestaurantRepository;
-import com.example.MadariZLucenca.persistence.FoodRepository;
+import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +16,11 @@ public class RestaurantService {
     @Autowired
     private FoodRepository foodRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public Long createNewRestaurant(Restaurant restaurant) {
+
+    public Long createNewRestaurant(Restaurant restaurant, String roleName) {
         RestaurantEntity entity = new RestaurantEntity();
         entity.setName(restaurant.getName());
         entity.setType(restaurant.getType());
@@ -30,6 +30,14 @@ public class RestaurantService {
         entity.setStreetName(restaurant.getStreetName());
         entity.setCityName(restaurant.getCityName());
         entity.setPostCode(restaurant.getPostCode());
+
+        RoleEntity restaurantRole = roleRepository.findByName(roleName);
+        if (restaurantRole != null) {
+            entity.setRole(restaurantRole);
+        } else {
+            System.out.println("chyba s rolami pri restaurant :/");
+        }
+
         restaurantRepository.save(entity);
         return entity.getRestaurantId();
     }

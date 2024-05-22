@@ -16,7 +16,8 @@ public class RestaurantController {
 
     @PostMapping("/restauracia")
     public Long createNewRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.createNewRestaurant(restaurant);
+        String roleName = "RESTAURANT";
+        return restaurantService.createNewRestaurant(restaurant, roleName);
     }
 
     @GetMapping("/restauracia/{restauraciaId}")

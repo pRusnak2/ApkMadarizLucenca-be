@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -62,8 +63,8 @@ public class AuthenticationService {
 
         validateTokenExpiration(optionalToken.get());
 
-        Set<RoleEntity> roles = optionalToken.get().getUser().getRoles();
-        Set<String> roleNames = roles.stream()
+        Set<RoleEntity> roles = (Set<RoleEntity>) optionalToken.get().getUser().getRole();
+        Set<Object> roleNames = roles.stream()
                 .map( entry -> entry.getRoleName())
                 .collect(Collectors.toSet());
 

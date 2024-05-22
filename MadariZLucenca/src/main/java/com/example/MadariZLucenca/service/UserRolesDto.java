@@ -5,9 +5,9 @@ import java.util.Set;
 public class UserRolesDto {
 
     private final String userName;
-    private final Set<String> roles;
+    private final Set<Object> roles;
 
-    public UserRolesDto(String userName, Set<String> roles) {
+    public UserRolesDto(String userName, Set<Object> roles) {
         this.userName = userName;
         this.roles = roles;
     }
@@ -16,7 +16,7 @@ public class UserRolesDto {
         return userName;
     }
 
-    public Set<String> getRoles() {
+    public Set<Object> getRoles() {
         return roles;
     }
 

@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
     @PostMapping("/zakaznik")
     public Long createNewCustomer(@RequestBody Customer customer) {
-        return customerService.createNewCustomer(customer);
+        String roleName = "CUSTOMER";
+        return customerService.createNewCustomer(customer, roleName);
     }
 
     @GetMapping("/zakaznik/{zakaznikId}")

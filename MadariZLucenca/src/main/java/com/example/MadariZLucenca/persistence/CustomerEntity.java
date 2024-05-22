@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.management.relation.Role;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +16,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class CustomerEntity {
 
     @Id
@@ -45,6 +46,6 @@ public class CustomerEntity {
     @OneToMany
     private Set<OrderEntity> orders;
 
-    @ManyToMany
-    private Set<RoleEntity> roles = new HashSet<>();
+    @OneToOne
+    private RoleEntity role;
 }

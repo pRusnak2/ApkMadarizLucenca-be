@@ -2,7 +2,10 @@ package com.example.MadariZLucenca.service;
 
 import com.example.MadariZLucenca.persistence.CustomerEntity;
 import com.example.MadariZLucenca.persistence.CustomerRepository;
+import com.example.MadariZLucenca.persistence.RoleEntity;
+import com.example.MadariZLucenca.persistence.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,11 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
-    public Long createNewCustomer(Customer customer) {
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public Long createNewCustomer(Customer customer, String roleName) {
         CustomerEntity entity = new CustomerEntity();
         entity.setUsername(customer.getUsername());
         entity.setTelNumber(customer.getTelNumber());
@@ -28,6 +35,14 @@ public class CustomerService {
         entity.setPostCode(customer.getPostCode());
         entity.setFirstName(customer.getFirstName());
         entity.setLastName(customer.getLastName());
+
+        RoleEntity customerRole = roleRepository.findByName(roleName);
+        if (customerRole != null) {
+            entity.setRole(customerRole);
+        } else {
+            System.out.println("chyba s rolami pri customer :/");
+        }
+
         customerRepository.save(entity);
         return entity.getCustomerId();
     }
