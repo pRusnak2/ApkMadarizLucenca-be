@@ -37,8 +37,9 @@ public class CustomerService {
         entity.setLastName(customer.getLastName());
 
         RoleEntity customerRole = roleRepository.findByName(roleName);
+
         if (customerRole != null) {
-            entity.setRole(customerRole);
+            entity.setRoleName(roleName);
         } else {
             System.out.println("chyba s rolami pri customer :/");
         }

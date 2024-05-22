@@ -25,6 +25,8 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private RoleRepository roleRepository;
+
     public AuthenticationService(CustomerRepository userRepository, TokenRepository tokenRepository) {
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
@@ -63,8 +65,10 @@ public class AuthenticationService {
 
         validateTokenExpiration(optionalToken.get());
 
-        Set<RoleEntity> roles = (Set<RoleEntity>) optionalToken.get().getUser().getRole();
-        Set<Object> roleNames = roles.stream()
+        RoleEntity test = roleRepository.findByName(optionalToken.get().getUser().getRoleName());
+        Set<RoleEntity> roles = (Set<RoleEntity>) test;
+
+        Set<String> roleNames = roles.stream()
                 .map( entry -> entry.getRoleName())
                 .collect(Collectors.toSet());
 

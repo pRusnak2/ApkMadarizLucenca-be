@@ -33,7 +33,7 @@ public class RestaurantService {
 
         RoleEntity restaurantRole = roleRepository.findByName(roleName);
         if (restaurantRole != null) {
-            entity.setRole(restaurantRole);
+            entity.setRoleName(roleName);
         } else {
             System.out.println("chyba s rolami pri restaurant :/");
         }

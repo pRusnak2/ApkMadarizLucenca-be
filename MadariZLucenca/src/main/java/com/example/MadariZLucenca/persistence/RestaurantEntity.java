@@ -35,6 +35,5 @@ public class RestaurantEntity {
 
     private int postCode;
 
-    @OneToOne
-    private RoleEntity role;
+    private String roleName;
 }

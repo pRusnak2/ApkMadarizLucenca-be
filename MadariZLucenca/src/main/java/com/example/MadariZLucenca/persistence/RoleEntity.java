@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Role;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Entity(name = "roles")
 @Data
@@ -16,18 +17,11 @@ import java.util.Collection;
 @AllArgsConstructor
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToOne(mappedBy = "role")
-    private CustomerEntity customer;
-
-    @OneToOne(mappedBy = "role")
-    private RestaurantEntity restaurant;
-
-    public Object getRoleName() {
+    public String getRoleName() {
         return name;
     }
 }

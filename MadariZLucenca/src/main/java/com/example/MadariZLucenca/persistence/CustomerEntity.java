@@ -46,6 +46,5 @@ public class CustomerEntity {
     @OneToMany
     private Set<OrderEntity> orders;
 
-    @OneToOne
-    private RoleEntity role;
+    private String roleName;
 }
