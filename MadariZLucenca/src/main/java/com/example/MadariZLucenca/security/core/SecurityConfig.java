@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .and().ignoring().requestMatchers("/zakaznik")
                 .and().ignoring().requestMatchers("/prihlasenie")
                 .and().ignoring().requestMatchers("/restauracia/*")
+                .and().ignoring().requestMatchers("/restauracia-formular/*")
                 .and().ignoring().requestMatchers("/kontakt")
                 .and().ignoring().requestMatchers("/food/restaurant/{restaurantId}")
                 .and().ignoring().requestMatchers("/")
