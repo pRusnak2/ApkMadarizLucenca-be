@@ -4,6 +4,7 @@ import com.example.MadariZLucenca.service.Restaurant;
 import com.example.MadariZLucenca.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class RestaurantController {
 
 
     @DeleteMapping("/restauracia/vymazanie/{restauraciaId}")
+    // Only users with ROLE_ADMIN can delete restaurants
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable Long restauraciaId) {
         restaurantService.deleteRestaurant(restauraciaId);
         return ResponseEntity.ok().build();

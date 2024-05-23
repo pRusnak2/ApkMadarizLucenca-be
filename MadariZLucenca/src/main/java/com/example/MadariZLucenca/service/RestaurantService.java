@@ -41,7 +41,7 @@ public class RestaurantService {
 
         restaurantRepository.save(entity);
 
-        LoginService test = new LoginService(loginRepository);
+        LoginService test = new LoginService(loginRepository, roleRepository);
         test.createNewLogin(restaurant, entity);
 
         return entity.getRestaurantId();

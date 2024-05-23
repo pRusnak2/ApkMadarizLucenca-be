@@ -1,32 +1,43 @@
 package com.example.MadariZLucenca.service;
 
+import com.example.MadariZLucenca.persistence.*;
 import com.example.MadariZLucenca.security.core.SecurityConfig;
-import com.example.MadariZLucenca.persistence.CustomerEntity;
-import com.example.MadariZLucenca.persistence.LoginEntity;
-import com.example.MadariZLucenca.persistence.LoginRepository;
-import com.example.MadariZLucenca.persistence.RestaurantEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final LoginRepository loginRepository;
 
+    private final RoleRepository roleRepository;
+
     @Autowired
-    public LoginService(LoginRepository loginRepository) {
+    public LoginService(LoginRepository loginRepository, RoleRepository roleRepository) {
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.loginRepository = loginRepository;
+        this.roleRepository = roleRepository;
     }
     public Long createNewLogin(Customer customer, CustomerEntity customerEntity) {
         LoginEntity loginEntity = new LoginEntity();
         loginEntity.setUsername(customer.getUsername());
         loginEntity.setPasswordHash(passwordEncoder.encode(customer.getPassword()));
         loginEntity.setCustomer(customerEntity);
+
+        RoleEntity customerRole = roleRepository.findByName("CUSTOMER"); // Get customer role
+        if (customerRole != null) {
+            Set<RoleEntity> roles = new HashSet<>(); // Create a new Set
+            roles.add(customerRole);
+            loginEntity.setRoles(roles);
+        } else {
+            System.out.println("rola nebol nájdená/neexistuje");
+        }
 
         loginRepository.save(loginEntity);
         return loginEntity.getId();
@@ -37,6 +48,15 @@ public class LoginService {
         loginEntity.setUsername(restaurant.getUsername());
         loginEntity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
         loginEntity.setRestaurant(restaurantEntity);
+
+        RoleEntity restaurantRole = roleRepository.findByName("RESTAURANT"); // Get customer role
+        if (restaurantRole != null) {
+            Set<RoleEntity> roles = new HashSet<>(); // Create a new Set
+            roles.add(restaurantRole);
+            loginEntity.setRoles(roles);
+        } else {
+            System.out.println("rola nebol nájdená/neexistuje");
+        }
 
         loginRepository.save(loginEntity);
         return loginEntity.getId();

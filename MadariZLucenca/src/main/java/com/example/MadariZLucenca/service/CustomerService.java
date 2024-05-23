@@ -2,7 +2,6 @@ package com.example.MadariZLucenca.service;
 
 import com.example.MadariZLucenca.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class CustomerService {
 
         customerRepository.save(entity);
 
-        LoginService test = new LoginService(loginRepository);
+        LoginService test = new LoginService(loginRepository, roleRepository);
         test.createNewLogin(customer, entity);
 
         return entity.getCustomerId();
@@ -67,6 +66,7 @@ public class CustomerService {
         customer.setPassword(entity.getPassword());
         customer.setStreetName(entity.getStreetName());
         customer.setCityName(entity.getCityName());
+
         return customer;
     }
 

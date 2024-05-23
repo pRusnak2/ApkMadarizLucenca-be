@@ -21,30 +21,17 @@ public class CustomerEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
-
     private int telNumber;
-
     private String email;
-
     private String username;
-
     private String password;
-
     private String streetName;
-
     private String cityName;
-
     private int postCode;
-
     private String firstName;
-
     private String lastName;
-
     private String passwordHash;
-
     @OneToMany
     private Set<OrderEntity> orders;
-
     private String roleName;
-
 }

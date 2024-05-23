@@ -18,9 +18,7 @@ import java.util.Set;
 public class RoleEntity {
     @Id
     private Long id;
-
     private String name;
-
     public String getRoleName() {
         return name;
     }
