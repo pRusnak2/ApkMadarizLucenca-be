@@ -53,11 +53,12 @@ public class AuthenticationService {
         String randomString = UUID.randomUUID().toString();
         token.setToken(randomString);
 
-        if(token.getCustomer() != null){
+        if(loginRepository.findByUsername(username).get().getCustomer() != null){
             token.setCustomer(optionalUser.get().getCustomer());
         } else {
             token.setRestaurant(optionalUser.get().getRestaurant());
         }
+
         token.setCreatedAt(LocalDateTime.now());
         tokenRepository.save(token);
 
@@ -75,7 +76,7 @@ public class AuthenticationService {
         validateTokenExpiration(optionalToken.get());
 
         RoleEntity role;
-        if(optionalToken.get().getCustomer() != null){
+        if(optionalToken.get().getRestaurant() == null){
             role = roleRepository.findByName(optionalToken.get().getCustomer().getRoleName());
             String roleName = role.getRoleName();
             return new UserRolesDto(optionalToken.get().getCustomer().getUsername(), roleName);

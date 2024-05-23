@@ -23,11 +23,11 @@ public class TokenEntity {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+    CustomerEntity customer;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    private RestaurantEntity restaurant;
+    RestaurantEntity restaurant;
 
 
     @Column(name = "valid_until", columnDefinition = "TIMESTAMP")

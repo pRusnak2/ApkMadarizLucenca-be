@@ -42,7 +42,6 @@ public class CustomerEntity{
 
     private String passwordHash;
 
-
     @OneToMany
     private Set<OrderEntity> orders;
 
