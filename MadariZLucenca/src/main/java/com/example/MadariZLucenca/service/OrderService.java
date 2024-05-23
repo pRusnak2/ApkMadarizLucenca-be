@@ -77,6 +77,22 @@ public class OrderService {
         }
     }
 
+    public Long getRestaurantIdByUsername(String username) {
+        Optional<LoginEntity> optionalLogin = loginRepository.findByUsername(username);
+
+        if (optionalLogin.isPresent()) {
+            LoginEntity loginEntity = optionalLogin.get();
+            RestaurantEntity restaurantEntity = loginEntity.getRestaurant();
+            if (restaurantEntity != null) {
+                return restaurantEntity.getRestaurantId();
+            } else {
+                throw new IllegalArgumentException("Restaurant not found for username: " + username);
+            }
+        } else {
+            throw new IllegalArgumentException("Login not found for username: " + username);
+        }
+    }
+
     public List<Order> getOrdersForCustomer(Long customerId) {
         List<OrderEntity> orderEntities = orderRepository.findByCustomerCustomerId(customerId);
         return orderEntities.stream().map(entity -> {
@@ -89,5 +105,48 @@ public class OrderService {
             order.setFoodNames(entity.getFoods().stream().map(FoodEntity::getName).collect(Collectors.toList())); // Pridajte tento riadok
             return order;
         }).collect(Collectors.toList());
+    }
+
+    public List<Order> getOrdersForRestaurant(Long restaurantId) {
+        List<OrderEntity> orderEntities = orderRepository.findByFoods_RestaurantId(restaurantId);
+        return orderEntities.stream().map(entity -> {
+            Order order = new Order();
+            order.setOrderId(entity.getOrderId());
+            order.setStatus(entity.getStatus());
+            order.setOrderTime(entity.getOrderTime());
+            order.setDeliveryTime(entity.getDeliveryTime());
+            order.setFoodIds(entity.getFoods().stream().map(FoodEntity::getFoodId).collect(Collectors.toList()));
+            order.setFoodNames(entity.getFoods().stream().map(FoodEntity::getName).collect(Collectors.toList()));
+            return order;
+        }).collect(Collectors.toList());
+    }
+
+
+
+    public Order updateOrderStatus(Long orderId, String newStatus) {
+        Optional<OrderEntity> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isEmpty()) {
+            throw new IllegalArgumentException("Objednávka s daným ID neexistuje.");
+        }
+
+        OrderEntity orderEntity = optionalOrder.get();
+        orderEntity.setStatus(newStatus);
+        orderRepository.save(orderEntity);
+
+        Order order = new Order();
+        order.setOrderId(orderEntity.getOrderId());
+        order.setStatus(orderEntity.getStatus());
+        order.setOrderTime(orderEntity.getOrderTime());
+        order.setDeliveryTime(orderEntity.getDeliveryTime());
+        order.setFoodIds(orderEntity.getFoods().stream().map(FoodEntity::getFoodId).collect(Collectors.toList()));
+        order.setFoodNames(orderEntity.getFoods().stream().map(FoodEntity::getName).collect(Collectors.toList()));
+        return order;
+    }
+
+    public void deleteOrder(Long orderId) {
+        if (!orderRepository.existsById(orderId)) {
+            throw new IllegalArgumentException("Objednávka s daným ID neexistuje.");
+        }
+        orderRepository.deleteById(orderId);
     }
 }

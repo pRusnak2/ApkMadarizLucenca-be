@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.management.relation.Role;
+import java.util.Set;
 
 
 @Entity
@@ -36,4 +37,7 @@ public class RestaurantEntity {
     private int postCode;
 
     private String roleName;
+
+    @OneToMany
+    private Set<OrderEntity> orders;
 }

@@ -16,5 +16,5 @@ public class Order {
     private Timestamp orderTime;
     private Timestamp deliveryTime;
     private List<Long> foodIds;
-    private List<String> foodNames; // Pridajte tento riadok
+    private List<String> foodNames;
 }

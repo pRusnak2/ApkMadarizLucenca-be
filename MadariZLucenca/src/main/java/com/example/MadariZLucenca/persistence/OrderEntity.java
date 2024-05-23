@@ -34,4 +34,8 @@ public class OrderEntity {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "food_id"))
     private List<FoodEntity> foods;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private RestaurantEntity restaurant;
 }

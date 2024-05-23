@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
 
@@ -38,5 +39,25 @@ public class OrderController {
         String customerName = userRolesDto.getUserName();
         Long customerId = orderService.getCustomerIdByName(customerName);
         return orderService.getOrdersForCustomer(customerId);
+    }
+
+    @GetMapping("/orders/restauracia")
+    public List<Order> getOrdersForRestaurant(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.substring("Bearer ".length()).trim();
+        UserRolesDto userRolesDto = authenticationService.authenticate(token);
+        String RestaurantName = userRolesDto.getUserName();
+        Long RestaurantId = orderService.getRestaurantIdByUsername(RestaurantName);
+        return orderService.getOrdersForRestaurant(RestaurantId);
+    }
+
+
+    @DeleteMapping("/orders/vymazanie/{orderId}")
+    public void deleteOrder(@PathVariable Long orderId) {
+        orderService.deleteOrder(orderId);
+    }
+
+    @PutMapping("/orders/update/{orderId}")
+    public Order updateOrderStatus(@PathVariable Long orderId, @RequestBody String status) {
+        return orderService.updateOrderStatus(orderId, status);
     }
 }

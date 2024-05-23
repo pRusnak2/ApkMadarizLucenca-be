@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface LoginRepository extends JpaRepository<LoginEntity, Long> {
     Optional<LoginEntity> findByUsername(String username);
 
+
+
 }

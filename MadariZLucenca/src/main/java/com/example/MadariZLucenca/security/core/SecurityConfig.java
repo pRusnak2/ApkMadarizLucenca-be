@@ -57,7 +57,11 @@ public class SecurityConfig {
                 .and().ignoring().requestMatchers("/kontakt")
                 .and().ignoring().requestMatchers("/food/restaurant/{restaurantId}")
                 .and().ignoring().requestMatchers("/")
-                .and().ignoring().requestMatchers("/food/*");
+                .and().ignoring().requestMatchers("/food/*")
+                .and().ignoring().requestMatchers("/orders/vymazanie/{orderId}")
+                .and().ignoring().requestMatchers("/orders/update/{orderId}")
+                .and().ignoring().requestMatchers("/orders/restauracia");
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
