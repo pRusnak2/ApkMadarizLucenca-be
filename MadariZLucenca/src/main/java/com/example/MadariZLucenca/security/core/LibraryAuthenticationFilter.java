@@ -37,13 +37,12 @@ public class LibraryAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring("Bearer".length()).trim();
-        UserRolesDto userRoles = authenticationService.authenticate(token);
+        UserRolesDto userRole = authenticationService.authenticate(token);
 
-        List<SimpleGrantedAuthority> roles = userRoles.getRoles().stream().map(
-                role -> new SimpleGrantedAuthority((String) role)).collect(Collectors.toList());
+        SimpleGrantedAuthority role = new SimpleGrantedAuthority(userRole.getRole());
 
         UsernamePasswordAuthenticationToken auth
-                = new UsernamePasswordAuthenticationToken(userRoles.getUserName(), null, roles);
+                = new UsernamePasswordAuthenticationToken(role, userRole.getUserName(), null);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         filterChain.doFilter(request, response);

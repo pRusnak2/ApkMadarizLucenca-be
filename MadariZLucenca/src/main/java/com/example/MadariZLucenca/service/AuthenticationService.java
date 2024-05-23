@@ -2,6 +2,7 @@ package com.example.MadariZLucenca.service;
 
 
 import com.example.MadariZLucenca.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,11 +26,13 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    public AuthenticationService(CustomerRepository userRepository, TokenRepository tokenRepository) {
+    @Autowired
+    public AuthenticationService(CustomerRepository userRepository, TokenRepository tokenRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -65,14 +68,12 @@ public class AuthenticationService {
 
         validateTokenExpiration(optionalToken.get());
 
-        RoleEntity test = roleRepository.findByName(optionalToken.get().getUser().getRoleName());
-        Set<RoleEntity> roles = (Set<RoleEntity>) test;
 
-        Set<String> roleNames = roles.stream()
-                .map( entry -> entry.getRoleName())
-                .collect(Collectors.toSet());
+        RoleEntity role = roleRepository.findByName(optionalToken.get().getUser().getRoleName());
 
-        return new UserRolesDto(optionalToken.get().getUser().getUsername(), roleNames);
+        String roleName = role.getRoleName();
+
+        return new UserRolesDto(optionalToken.get().getUser().getUsername(), roleName);
     }
 
     private void validateTokenExpiration(TokenEntity token) {
