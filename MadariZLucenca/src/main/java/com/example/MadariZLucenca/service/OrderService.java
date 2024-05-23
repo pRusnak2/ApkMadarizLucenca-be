@@ -21,6 +21,9 @@ public class OrderService {
     @Autowired
     private FoodRepository foodRepository;
 
+    @Autowired
+    private LoginRepository loginRepository;
+
     public Order createOrder(Long customerId, Order order) {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(customerId);
         if (optionalCustomer.isEmpty()) {
@@ -64,7 +67,9 @@ public class OrderService {
     }
 
     public Long getCustomerIdByName(String userName) {
-        Optional<CustomerEntity> optionalCustomer = customerRepository.findByUsername(userName);
+
+        Optional<CustomerEntity> optionalCustomer = Optional.ofNullable(loginRepository.findByUsername(userName).get().getCustomer());
+
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get().getCustomerId();
         } else {

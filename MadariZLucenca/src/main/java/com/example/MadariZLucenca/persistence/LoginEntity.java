@@ -26,4 +26,6 @@ public class LoginEntity {
 
     @OneToOne
     private RestaurantEntity restaurant;
+
+
 }

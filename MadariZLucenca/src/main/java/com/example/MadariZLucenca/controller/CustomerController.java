@@ -27,7 +27,5 @@ import org.springframework.web.bind.annotation.*;
     public ResponseEntity<String> deleteCustomerById(@PathVariable Long zakaznikId) {
         customerService.deleteCustomerById(zakaznikId);
         return ResponseEntity.ok("id zakaznika " + zakaznikId + " bol uspens vymazany");
-
-
     }
 }

@@ -22,15 +22,15 @@ import java.util.stream.Collectors;
 public class AuthenticationService {
 
     private static final int TOKEN_VALIDITY_IN_MINUTES = 15;
-    private final CustomerRepository userRepository;
+    private final LoginRepository loginRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
 
     @Autowired
-    public AuthenticationService(CustomerRepository userRepository, TokenRepository tokenRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
+    public AuthenticationService(LoginRepository loginRepository, TokenRepository tokenRepository, RoleRepository roleRepository) {
+        this.loginRepository = loginRepository;
         this.tokenRepository = tokenRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
@@ -38,7 +38,8 @@ public class AuthenticationService {
 
     @Transactional
     public String authenticate(String username, String password) {
-        Optional<CustomerEntity> optionalUser = userRepository.findByUsername(username);
+        Optional<LoginEntity> optionalUser = loginRepository.findByUsername(username);
+
 
         if (optionalUser.isEmpty()) {
             throw new AuthenticationCredentialsNotFoundException("Username and/or password do not match!");
@@ -51,7 +52,12 @@ public class AuthenticationService {
         TokenEntity token = new TokenEntity();
         String randomString = UUID.randomUUID().toString();
         token.setToken(randomString);
-        token.setUser(optionalUser.get());
+
+        if(token.getCustomer() != null){
+            token.setCustomer(optionalUser.get().getCustomer());
+        } else {
+            token.setRestaurant(optionalUser.get().getRestaurant());
+        }
         token.setCreatedAt(LocalDateTime.now());
         tokenRepository.save(token);
 
@@ -68,12 +74,17 @@ public class AuthenticationService {
 
         validateTokenExpiration(optionalToken.get());
 
+        RoleEntity role;
+        if(optionalToken.get().getCustomer() != null){
+            role = roleRepository.findByName(optionalToken.get().getCustomer().getRoleName());
+            String roleName = role.getRoleName();
+            return new UserRolesDto(optionalToken.get().getCustomer().getUsername(), roleName);
+        } else {
+            role = roleRepository.findByName(optionalToken.get().getRestaurant().getRoleName());
+            String roleName = role.getRoleName();
+            return new UserRolesDto(optionalToken.get().getRestaurant().getUsername(), roleName);
+        }
 
-        RoleEntity role = roleRepository.findByName(optionalToken.get().getUser().getRoleName());
-
-        String roleName = role.getRoleName();
-
-        return new UserRolesDto(optionalToken.get().getUser().getUsername(), roleName);
     }
 
     private void validateTokenExpiration(TokenEntity token) {

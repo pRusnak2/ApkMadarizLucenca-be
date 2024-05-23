@@ -22,8 +22,13 @@ public class TokenEntity {
     private String token;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private CustomerEntity user;
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private RestaurantEntity restaurant;
+
 
     @Column(name = "valid_until", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
