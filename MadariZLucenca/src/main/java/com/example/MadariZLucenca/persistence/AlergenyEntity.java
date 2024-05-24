@@ -19,6 +19,4 @@ public class AlergenyEntity {
     private Long allergenId;
     private String name;
 
-    @ManyToMany
-    private Set<FoodEntity> foods ;
 }
