@@ -87,17 +87,20 @@ public class RestaurantService {
     }
 
     public void deleteRestaurant(Long id) {
-
         Optional<RestaurantEntity> opt = restaurantRepository.findById(id);
         if (opt.isEmpty()) {
             return;
         }
 
-        List<FoodEntity> foods = foodRepository.findByRestaurantId(id);
+        RestaurantEntity restaurant = opt.get();
 
+        List<FoodEntity> foods = foodRepository.findByRestaurantId(id);
         for (FoodEntity food : foods) {
             foodRepository.delete(food);
         }
+
+        Optional<LoginEntity> loginOpt = loginRepository.findByRestaurant(restaurant);
+        loginOpt.ifPresent(loginRepository::delete);
 
         restaurantRepository.deleteById(id);
     }
