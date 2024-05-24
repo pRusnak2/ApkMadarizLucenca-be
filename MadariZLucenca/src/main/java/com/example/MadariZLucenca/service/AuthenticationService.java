@@ -102,4 +102,21 @@ public class AuthenticationService {
         tokenRepository.deleteByToken(token);
     }
 
+    public Long getRestaurantIdByUsername(String username) {
+        Optional<LoginEntity> optionalLogin = loginRepository.findByUsername(username);
+
+        if (optionalLogin.isPresent()) {
+            LoginEntity loginEntity = optionalLogin.get();
+            RestaurantEntity restaurantEntity = loginEntity.getRestaurant();
+            if (restaurantEntity != null) {
+                return restaurantEntity.getRestaurantId();
+            } else {
+                throw new IllegalArgumentException("Restaurant not found for username: " + username);
+            }
+        } else {
+            throw new IllegalArgumentException("Login not found for username: " + username);
+        }
+    }
+
+
 }

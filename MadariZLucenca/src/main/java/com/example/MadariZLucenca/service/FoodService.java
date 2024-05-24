@@ -15,30 +15,27 @@ public class FoodService {
 
     @Autowired
     AlergenyRepository alergenyRepository;
-    public Long createNewFood(Food food) {
-        FoodEntity entity = new FoodEntity();
 
-        entity.setName(food.getName());
-        entity.setDescription(food.getDescription());
-        entity.setFoodId(food.getFoodId());
-        entity.setRestaurantId(food.getRestaurantId());
-        entity.setPrice(food.getPrice());
+
+    public Long createNewFood(Food food) {
+        Long restaurantId = food.getRestaurantId();
+
+        FoodEntity foodEntity = new FoodEntity();
+        foodEntity.setName(food.getName());
+        foodEntity.setDescription(food.getDescription());
+        foodEntity.setPrice(food.getPrice());
+        foodEntity.setRestaurantId(restaurantId);
 
         List<String> allergenIds = food.getAllergens();
         Set<AlergenyEntity> allergens = new HashSet<>();
-
         for (String allergenId : allergenIds) {
             Optional<AlergenyEntity> allergenOpt = alergenyRepository.findById(Long.valueOf(allergenId));
-            if (allergenOpt.isPresent()) {
-                allergens.add(allergenOpt.get());
-            }
+            allergenOpt.ifPresent(allergens::add);
         }
+        foodEntity.setAllergens(allergens);
 
-        entity.setAllergens(allergens);
-
-        jedloRepository.save(entity);
-
-        return entity.getFoodId();
+        FoodEntity savedFoodEntity = jedloRepository.save(foodEntity);
+        return savedFoodEntity.getFoodId();
     }
 
     public Food FoodById(Long id) {
@@ -97,6 +94,4 @@ public class FoodService {
 
         return deletedFood;
     }
-
-
 }
