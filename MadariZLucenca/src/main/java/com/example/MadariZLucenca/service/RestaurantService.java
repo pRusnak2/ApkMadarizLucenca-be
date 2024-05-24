@@ -19,6 +19,8 @@ public class RestaurantService {
     private RoleRepository roleRepository;
     @Autowired
     private LoginRepository loginRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     public Long createNewRestaurant(Restaurant restaurant, String roleName) {
@@ -94,15 +96,27 @@ public class RestaurantService {
 
         RestaurantEntity restaurant = opt.get();
 
-        List<FoodEntity> foods = foodRepository.findByRestaurantId(id);
-        for (FoodEntity food : foods) {
-            foodRepository.delete(food);
+
+        List<OrderEntity> orders = orderRepository.findByFoods_RestaurantId(id);
+        for (OrderEntity order : orders) {
+
+            orderRepository.delete(order);
         }
+
 
         Optional<LoginEntity> loginOpt = loginRepository.findByRestaurant(restaurant);
         loginOpt.ifPresent(loginRepository::delete);
 
+
+        List<FoodEntity> foods = foodRepository.findByRestaurantId(id);
+        for (FoodEntity food : foods) {
+
+            foodRepository.delete(food);
+        }
+
+        // Step 4: Delete the restaurant entity
         restaurantRepository.deleteById(id);
     }
+
 
 }
