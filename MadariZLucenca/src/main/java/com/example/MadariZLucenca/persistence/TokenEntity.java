@@ -29,6 +29,10 @@ public class TokenEntity {
     @JoinColumn(name = "restaurant_id")
     RestaurantEntity restaurant;
 
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    AdminEntity admin;
+
 
     @Column(name = "valid_until", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;

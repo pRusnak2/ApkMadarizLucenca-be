@@ -29,4 +29,7 @@ public class LoginEntity {
 
     @OneToOne
     private RestaurantEntity restaurant;
+
+    @OneToOne
+    private AdminEntity admin;
 }

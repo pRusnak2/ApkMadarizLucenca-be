@@ -19,13 +19,9 @@ public class FoodEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long foodId;
-
     private String name;
-
     private String description;
-
     private float price;
-
     private Long restaurantId;
 
     @ManyToMany

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class LoginService {
             roles.add(customerRole);
             loginEntity.setRoles(roles);
         } else {
-            System.out.println("rola nebol nájdená/neexistuje");
+            System.out.println("rola nebola nájdená/neexistuje");
         }
 
         loginRepository.save(loginEntity);
@@ -49,19 +50,37 @@ public class LoginService {
         loginEntity.setPasswordHash(passwordEncoder.encode(restaurant.getPassword()));
         loginEntity.setRestaurant(restaurantEntity);
 
-        RoleEntity restaurantRole = roleRepository.findByName("RESTAURANT"); // Get customer role
+        RoleEntity restaurantRole = roleRepository.findByName("RESTAURANT");
         if (restaurantRole != null) {
-            Set<RoleEntity> roles = new HashSet<>(); // Create a new Set
+            Set<RoleEntity> roles = new HashSet<>();
             roles.add(restaurantRole);
             loginEntity.setRoles(roles);
         } else {
-            System.out.println("rola nebol nájdená/neexistuje");
+            System.out.println("rola nebola nájdená/neexistuje");
         }
 
         loginRepository.save(loginEntity);
         return loginEntity.getId();
     }
 
+    public Long createNewLogin(AdminEntity adminEntity) {
+        LoginEntity loginEntity = new LoginEntity();
+        loginEntity.setUsername(adminEntity.getUsername());
+        loginEntity.setPasswordHash(passwordEncoder.encode(adminEntity.getPassword()));
+        loginEntity.setAdmin(adminEntity);
+
+        RoleEntity adminRole = roleRepository.findByName("ADMIN");
+        if(adminRole != null) {
+            Set<RoleEntity> roles = new HashSet<>();
+            roles.add(adminRole);
+            loginEntity.setRoles(roles);
+        } else {
+            System.out.println("rola nebola nájdená/neexistuje");
+        }
+
+        loginRepository.save(loginEntity);
+        return loginEntity.getId();
+    }
     public Login loginById(Long id){
         Optional<LoginEntity> opt = loginRepository.findById(id);
         if (opt.isEmpty()) {

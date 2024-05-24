@@ -53,10 +53,12 @@ public class AuthenticationService {
         String randomString = UUID.randomUUID().toString();
         token.setToken(randomString);
 
-        if(loginRepository.findByUsername(username).get().getCustomer() != null){
+        if(loginRepository.findByUsername(username).get().getCustomer() != null && loginRepository.findByUsername(username).get().getAdmin() == null){
             token.setCustomer(optionalUser.get().getCustomer());
-        } else {
+        } else if(loginRepository.findByUsername(username).get().getRestaurant() != null && loginRepository.findByUsername(username).get().getAdmin() == null) {
             token.setRestaurant(optionalUser.get().getRestaurant());
+        } else {
+            token.setAdmin(optionalUser.get().getAdmin());
         }
 
         token.setCreatedAt(LocalDateTime.now());
@@ -76,14 +78,18 @@ public class AuthenticationService {
         validateTokenExpiration(optionalToken.get());
 
         RoleEntity role;
-        if(optionalToken.get().getRestaurant() == null){
+        if(optionalToken.get().getRestaurant() == null && optionalToken.get().getAdmin() == null){
             role = roleRepository.findByName(optionalToken.get().getCustomer().getRoleName());
             String roleName = role.getRoleName();
             return new UserRolesDto(optionalToken.get().getCustomer().getUsername(), roleName);
-        } else {
+        } else if(optionalToken.get().getCustomer() == null && optionalToken.get().getAdmin() == null){
             role = roleRepository.findByName(optionalToken.get().getRestaurant().getRoleName());
             String roleName = role.getRoleName();
             return new UserRolesDto(optionalToken.get().getRestaurant().getUsername(), roleName);
+        } else {
+            role = roleRepository.findByName(optionalToken.get().getAdmin().getRoleName());
+            String roleName = role.getRoleName();
+            return new UserRolesDto(optionalToken.get().getAdmin().getUsername(), roleName);
         }
 
     }
