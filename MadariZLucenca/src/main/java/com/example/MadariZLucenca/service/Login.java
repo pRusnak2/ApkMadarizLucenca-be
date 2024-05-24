@@ -1,12 +1,11 @@
 package com.example.MadariZLucenca.service;
 
-import com.example.MadariZLucenca.persistence.AdminEntity;
-import com.example.MadariZLucenca.persistence.CustomerEntity;
-import com.example.MadariZLucenca.persistence.LoginEntity;
-import com.example.MadariZLucenca.persistence.RestaurantEntity;
+import com.example.MadariZLucenca.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -18,4 +17,5 @@ public class Login {
     private CustomerEntity customer;
     private RestaurantEntity restaurant;
     private AdminEntity admin;
+    private Set<RoleEntity> roles;
 }

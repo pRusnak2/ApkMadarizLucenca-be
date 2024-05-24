@@ -53,9 +53,9 @@ public class AuthenticationService {
         String randomString = UUID.randomUUID().toString();
         token.setToken(randomString);
 
-        if(loginRepository.findByUsername(username).get().getCustomer() != null && loginRepository.findByUsername(username).get().getAdmin() == null){
+        if(loginRepository.findByUsername(username).get().getCustomer() != null ){
             token.setCustomer(optionalUser.get().getCustomer());
-        } else if(loginRepository.findByUsername(username).get().getRestaurant() != null && loginRepository.findByUsername(username).get().getAdmin() == null) {
+        } else if(loginRepository.findByUsername(username).get().getRestaurant() != null) {
             token.setRestaurant(optionalUser.get().getRestaurant());
         } else {
             token.setAdmin(optionalUser.get().getAdmin());
@@ -81,14 +81,17 @@ public class AuthenticationService {
         if(optionalToken.get().getRestaurant() == null && optionalToken.get().getAdmin() == null){
             role = roleRepository.findByName(optionalToken.get().getCustomer().getRoleName());
             String roleName = role.getRoleName();
+            System.out.println("rola ktorá sa dúfam posiela do frontendu v UserRolesDto: " + roleName);
             return new UserRolesDto(optionalToken.get().getCustomer().getUsername(), roleName);
         } else if(optionalToken.get().getCustomer() == null && optionalToken.get().getAdmin() == null){
             role = roleRepository.findByName(optionalToken.get().getRestaurant().getRoleName());
             String roleName = role.getRoleName();
+            System.out.println("rola ktorá sa dúfam posiela do frontendu v UserRolesDto: " + roleName);
             return new UserRolesDto(optionalToken.get().getRestaurant().getUsername(), roleName);
         } else {
             role = roleRepository.findByName(optionalToken.get().getAdmin().getRoleName());
             String roleName = role.getRoleName();
+            System.out.println("rola ktorá sa dúfam posiela do frontendu v UserRolesDto: " + roleName);
             return new UserRolesDto(optionalToken.get().getAdmin().getUsername(), roleName);
         }
 
