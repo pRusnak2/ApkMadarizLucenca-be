@@ -1,13 +1,9 @@
 package com.example.MadariZLucenca.security.core;
 
 import com.example.MadariZLucenca.service.AuthenticationService;
-import com.example.MadariZLucenca.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -18,11 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -32,11 +23,6 @@ public class SecurityConfig {
 
     @Autowired
     private LibraryAuthenticationEntryPoint authEntryPoint;
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

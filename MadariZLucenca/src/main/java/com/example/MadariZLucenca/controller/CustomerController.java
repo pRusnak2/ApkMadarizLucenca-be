@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
     private CustomerService customerService;
 
     @PostMapping("/zakaznik")
-    @PreAuthorize("permitAll()")
     public Long createNewCustomer(@RequestBody Customer customer) {
         String roleName = "CUSTOMER";
 
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
     }
 
     @DeleteMapping("/zakaznik/delete/{zakaznikId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteCustomerById(@PathVariable Long zakaznikId) {
         customerService.deleteCustomerById(zakaznikId);
         return ResponseEntity.ok("id zakaznika " + zakaznikId + " bol uspens vymazany");
