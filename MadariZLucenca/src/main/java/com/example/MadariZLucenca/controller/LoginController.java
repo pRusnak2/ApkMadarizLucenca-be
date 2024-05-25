@@ -1,5 +1,6 @@
 package com.example.MadariZLucenca.controller;
 
+import com.example.MadariZLucenca.service.HasRole;
 import com.example.MadariZLucenca.service.Login;
 import com.example.MadariZLucenca.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class LoginController {
     }
 
     @DeleteMapping("/login/delete/{Id}")
+    @HasRole("ADMIN")
     public ResponseEntity<String> deleteLoginById(@PathVariable Long Id) {
         loginService.deleteLoginById(Id);
         return ResponseEntity.ok("id login " + Id + " bol uspesne vymazany");

@@ -15,29 +15,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long restaurantId;
-
     private String name;
-
     private String type;
-
     private int telNumber;
-
     private String username;
-
     private String password;
-
     private String streetName;
-
     private String cityName;
-
     private int postCode;
-
     private String roleName;
-
     @OneToMany
     private Set<OrderEntity> orders;
 }

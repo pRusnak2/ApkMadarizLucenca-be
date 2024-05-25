@@ -1,5 +1,6 @@
 package com.example.MadariZLucenca.controller;
 
+import com.example.MadariZLucenca.service.HasRole;
 import com.example.MadariZLucenca.service.Restaurant;
 import com.example.MadariZLucenca.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class RestaurantController {
 
 
     @DeleteMapping("/restauracia/vymazanie/{restauraciaId}")
+    @HasRole("ADMIN")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable Long restauraciaId) {
         restaurantService.deleteRestaurant(restauraciaId);
         return ResponseEntity.ok().build();

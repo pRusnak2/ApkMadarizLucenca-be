@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Role;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,11 +16,16 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEntity {
+public class RoleEntity implements GrantedAuthority {
     @Id
     private Long id;
     private String name;
     public String getRoleName() {
+        return name;
+    }
+
+    @Override
+    public String getAuthority() {
         return name;
     }
 }

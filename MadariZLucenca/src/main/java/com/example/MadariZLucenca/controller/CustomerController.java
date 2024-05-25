@@ -2,6 +2,7 @@ package com.example.MadariZLucenca.controller;
 
 import com.example.MadariZLucenca.service.Customer;
 import com.example.MadariZLucenca.service.CustomerService;
+import com.example.MadariZLucenca.service.HasRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
     }
 
     @DeleteMapping("/zakaznik/delete/{zakaznikId}")
+    @HasRole("ADMIN")
     public ResponseEntity<String> deleteCustomerById(@PathVariable Long zakaznikId) {
         customerService.deleteCustomerById(zakaznikId);
         return ResponseEntity.ok("id zakaznika " + zakaznikId + " bol uspens vymazany");

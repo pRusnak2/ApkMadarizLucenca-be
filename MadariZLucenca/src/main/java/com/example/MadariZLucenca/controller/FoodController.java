@@ -15,7 +15,14 @@ public class FoodController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    private final RoleService roleService;
+
+    public FoodController(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     @PostMapping("/food")
+    @HasRole("RESTAURANT")
     public Food createFood(@RequestHeader("Authorization") String authHeader, @RequestBody Food food) {
         String token = authHeader.substring("Bearer ".length()).trim();
         UserRolesDto userRolesDto = authenticationService.authenticate(token);

@@ -1,13 +1,11 @@
 package com.example.MadariZLucenca.service;
 
 import com.example.MadariZLucenca.persistence.*;
-import com.example.MadariZLucenca.security.core.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
