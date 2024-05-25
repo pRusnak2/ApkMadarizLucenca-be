@@ -17,4 +17,12 @@ public class Order {
     private Timestamp deliveryTime;
     private List<Long> foodIds;
     private List<String> foodNames;
+
+    private int customerTelNumber;
+    private String customerEmail;
+    private String customerStreetName;
+    private String customerCityName;
+    private int customerPostCode;
+    private String customerFirstName;
+    private String customerLastName;
 }

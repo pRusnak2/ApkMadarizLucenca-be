@@ -117,6 +117,15 @@ public class OrderService {
             order.setDeliveryTime(entity.getDeliveryTime());
             order.setFoodIds(entity.getFoods().stream().map(FoodEntity::getFoodId).collect(Collectors.toList()));
             order.setFoodNames(entity.getFoods().stream().map(FoodEntity::getName).collect(Collectors.toList()));
+
+            order.setCustomerTelNumber(entity.getCustomer().getTelNumber());
+            order.setCustomerEmail(entity.getCustomer().getEmail());
+            order.setCustomerStreetName(entity.getCustomer().getStreetName());
+            order.setCustomerCityName(entity.getCustomer().getCityName());
+            order.setCustomerPostCode(entity.getCustomer().getPostCode());
+            order.setCustomerFirstName(entity.getCustomer().getFirstName());
+            order.setCustomerLastName(entity.getCustomer().getLastName());
+
             return order;
         }).collect(Collectors.toList());
     }
